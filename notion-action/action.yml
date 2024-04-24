@@ -1,0 +1,21 @@
+name: 'Notion Action'
+description: 'Notion Action'
+inputs:
+  notion_token:  # id of input
+    description: 'Notion Token'
+    required: true
+  notion_task_database_id:  # id of input
+    description: 'Notion Task Database ID'
+    required: true
+  title:  #
+    description: 'Title'
+    required: true
+  url: #
+    description: 'URL'
+    required: true
+  repo: # id of input
+    description: 'Repo'
+    required: true
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

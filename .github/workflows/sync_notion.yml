@@ -1,0 +1,30 @@
+name: sync notion
+on:
+  issues:
+    types: labeled
+
+jobs:
+  call-worflow:
+    if: github.event_name == 'issues' && github.event.action == 'labeled' && github.event.label.name == 'Notion'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate GitHub Apps token
+        id: generate
+        uses: actions/create-github-app-token@v1
+        with:
+            app-id: ${{ secrets.BOT_APP_ID }}
+            private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+
+      - name: Call Workflow
+        run: |
+          TOKEN="${{ steps.generate.outputs.token }}"
+          TITLE="${{ github.event.issue.title }}"
+          URL="${{ github.server_url }}/${{ github.repository }}/issues/${{ github.event.issue.number }}"
+          REPO="${{ github.repository }}"
+
+          curl \
+            -X POST \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/＜Organization名＞/sync-issue-to-notion-action/dispatches \
+            -d "{\"event_type\": \"labeled-issue\", \"client_payload\": {\"repo\": \"${REPO}\", \"title\": \"${TITLE}\", \"url\": \"${URL}\"}}"
