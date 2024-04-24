@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 20
       - name: Sync GitHub Issue to Notion
-        uses: './'
+        uses: './notion-action'
         with:
           notion_token: ${{ secrets.NOTION_TOKEN }}
           notion_task_database_id: ${{ secrets.NOTION_TASK_DATABASE_ID }}
