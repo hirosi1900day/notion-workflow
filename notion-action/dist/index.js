@@ -30028,9 +30028,9 @@ async function run() {
         await notion.pages.create({
             parent: { database_id: notion_task_database_id },
             properties: {
-                タスク名: {
-                    id: 'title',
-                    title: [{ text: { content: title } }],
+                'GitHub Issue リンク': {
+                    type: 'url',
+                    url: url,
                 }
             },
         });
