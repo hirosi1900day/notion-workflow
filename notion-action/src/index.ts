@@ -21,15 +21,7 @@ async function run(): Promise<void> {
         タスク名: {
           id: 'title',
           title: [{ text: { content: title } }],
-        },
-        リポジトリ: {
-          type: 'select',
-          select: { name: repo },
-        },
-        'GitHub Issue リンク': {
-          type: 'url',
-          url: url,
-        },
+        }
       },
     })
   } catch (error) {

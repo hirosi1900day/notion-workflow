@@ -30031,15 +30031,7 @@ async function run() {
                 タスク名: {
                     id: 'title',
                     title: [{ text: { content: title } }],
-                },
-                リポジトリ: {
-                    type: 'select',
-                    select: { name: repo },
-                },
-                'GitHub Issue リンク': {
-                    type: 'url',
-                    url: url,
-                },
+                }
             },
         });
     }
