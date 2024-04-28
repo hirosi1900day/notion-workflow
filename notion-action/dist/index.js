@@ -30016,9 +30016,8 @@ const client_1 = __nccwpck_require__(324);
 const core = __importStar(__nccwpck_require__(2186));
 const notion_token = core.getInput('notion_token');
 const notion_task_database_id = core.getInput('notion_task_database_id');
-const title = core.getInput('title');
-const repo = core.getInput('repo');
 const url = core.getInput('url');
+const status_property_name = core.getInput('status_property_name');
 async function run() {
     const notion = new client_1.Client({
         auth: notion_token,
