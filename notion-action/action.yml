@@ -7,14 +7,11 @@ inputs:
   notion_task_database_id:  # id of input
     description: 'Notion Task Database ID'
     required: true
-  title:  #
-    description: 'Title'
-    required: true
   url: #
     description: 'URL'
     required: true
-  repo: # id of input
-    description: 'Repo'
+  status_property_name:
+    description: 'status property name'
     required: true
 runs:
   using: 'node20'
