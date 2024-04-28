@@ -18,7 +18,8 @@ async function main(): Promise<void> {
   })
   const notionFetcher = new NotionIssueFetcher(notionClient, notionTaskDatabaseId)
   const test = await notionFetcher.fetchIssues()
-  console.log('確認', test);
+  console.log('確認', test[0].pageId);
+  console.log('確認2', test[0].issueNumber);
 }
 
 
