@@ -30013,11 +30013,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(2186);
 const client_1 = __nccwpck_require__(324);
+// import { Octokit } from 'octokit';
 const core = __importStar(__nccwpck_require__(2186));
 const notion_token = core.getInput('notion_token');
 const notion_task_database_id = core.getInput('notion_task_database_id');
 const url = core.getInput('url');
-const status_property_name = core.getInput('status_property_name');
+// const repo_name = core.getInput('repo_name');
+// const repo_owner= core.getInput('repo_owner');
 async function run() {
     const notion = new client_1.Client({
         auth: notion_token,

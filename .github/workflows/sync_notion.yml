@@ -20,11 +20,12 @@ jobs:
           TOKEN="${{ steps.generate.outputs.token }}"
           TITLE="${{ github.event.issue.title }}"
           URL="${{ github.server_url }}/${{ github.repository }}/issues/${{ github.event.issue.number }}"
-          REPO="${{ github.repository }}"
+          REPO_NAME="${{ github.repository }}"
+          REPO_OWNER="${{ github.repository_owner }}"
 
           curl \
             -X POST \
             -H "Authorization: Bearer ${TOKEN}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/hirosi1900day/notion-workflow/dispatches \
-            -d "{\"event_type\": \"labeled-issue\", \"client_payload\": {\"repo\": \"${REPO}\", \"title\": \"${TITLE}\", \"url\": \"${URL}\"}}"
+            -d "{\"event_type\": \"labeled-issue\", \"client_payload\": {\"repo_name\": \"${REPO_NAME}\", \"repo_owner\": \"${REPO_OWNER}\", \"title\": \"${TITLE}\", \"url\": \"${URL}\"}}"

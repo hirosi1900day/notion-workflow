@@ -22,4 +22,5 @@ jobs:
           notion_task_database_id: ${{ secrets.NOTION_TASK_DATABASE_ID }}
           title: ${{ github.event.client_payload.title }}
           url: ${{ github.event.client_payload.url }}
-          repo: ${{ github.event.client_payload.repo }}
+          repo_name: ${{ github.event.client_payload.repo_name }}
+          repo_owner: ${{ github.event.client_payload.repo_owner }}

@@ -10,8 +10,11 @@ inputs:
   url:
     description: 'URL'
     required: true
-  status_property_name:
-    description: 'status property name'
+  repo_owner:
+    description: 'Github repository owner'
+    required: true
+  repo_name:
+    description: 'Github repository name'
     required: true
 runs:
   using: 'node20'

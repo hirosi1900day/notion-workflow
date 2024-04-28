@@ -1,12 +1,13 @@
 import { setFailed } from '@actions/core'
 import { Client, LogLevel } from '@notionhq/client'
-import { Octokit } from 'octokit';
+// import { Octokit } from 'octokit';
 import * as core from '@actions/core'
 
 const notion_token = core.getInput('notion_token');
 const notion_task_database_id = core.getInput('notion_task_database_id');
 const url = core.getInput('url');
-const status_property_name = core.getInput('status_property_name')
+// const repo_name = core.getInput('repo_name');
+// const repo_owner= core.getInput('repo_owner');
 
 async function run(): Promise<void> {
   const notion = new Client({
