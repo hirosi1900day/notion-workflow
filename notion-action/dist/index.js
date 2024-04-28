@@ -30013,6 +30013,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const notion_action_1 = __nccwpck_require__(6943);
+const notion_issue_fetcher_1 = __nccwpck_require__(7021);
+const client_1 = __nccwpck_require__(324);
 async function main() {
     const notionToken = core.getInput('notion_token');
     const notionTaskDatabaseId = core.getInput('notion_task_database_id');
@@ -30021,6 +30023,12 @@ async function main() {
     // const repo_owner= core.getInput('repo_owner');
     const notionAction = new notion_action_1.NotionAction(notionToken, notionTaskDatabaseId, url);
     await notionAction.run();
+    const notionClient = new client_1.Client({
+        auth: notionToken,
+        logLevel: client_1.LogLevel.DEBUG
+    });
+    const notionFetcher = new notion_issue_fetcher_1.NotionIssueFetcher(notionClient, notionTaskDatabaseId);
+    console.log('確認', notionFetcher.fetchIssues());
 }
 main();
 
@@ -30067,6 +30075,57 @@ class NotionAction {
     }
 }
 exports.NotionAction = NotionAction;
+
+
+/***/ }),
+
+/***/ 7021:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NotionIssueFetcher = void 0;
+class NotionIssueFetcher {
+    notionClient;
+    databaseId;
+    constructor(notionClient, databaseId) {
+        this.notionClient = notionClient;
+        this.databaseId = databaseId;
+    }
+    async fetchIssues() {
+        const pages = [];
+        let cursor;
+        while (true) {
+            const response = await this.notionClient.databases.query({
+                database_id: this.databaseId,
+                start_cursor: cursor,
+            });
+            pages.push(...response.results);
+            if (!response.next_cursor) {
+                break;
+            }
+            cursor = response.next_cursor;
+        }
+        console.log(`${pages.length} issues successfully fetched.`);
+        const issues = [];
+        for (const page of pages) {
+            const issueNumberPropertyId = page.properties["Issue Number"].id;
+            const propertyResult = await this.notionClient.pages.properties.retrieve({
+                page_id: page.id,
+                property_id: issueNumberPropertyId,
+            });
+            if (propertyResult.number) {
+                issues.push({
+                    pageId: page.id,
+                    issueNumber: propertyResult.number,
+                });
+            }
+        }
+        return issues;
+    }
+}
+exports.NotionIssueFetcher = NotionIssueFetcher;
 
 
 /***/ }),
