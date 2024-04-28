@@ -17,7 +17,8 @@ async function main(): Promise<void> {
     logLevel: LogLevel.DEBUG
   })
   const notionFetcher = new NotionIssueFetcher(notionClient, notionTaskDatabaseId)
-  console.log('確認', notionFetcher.fetchIssues());
+  const test = await notionFetcher.fetchIssues()
+  console.log('確認', test);
 }
 
 
