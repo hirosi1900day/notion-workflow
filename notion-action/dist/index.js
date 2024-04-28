@@ -30011,9 +30011,31 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core = __importStar(__nccwpck_require__(2186));
+const notion_action_1 = __nccwpck_require__(6943);
+async function main() {
+    const notionToken = core.getInput('notion_token');
+    const notionTaskDatabaseId = core.getInput('notion_task_database_id');
+    const url = core.getInput('url');
+    // const repo_name = core.getInput('repo_name');
+    // const repo_owner= core.getInput('repo_owner');
+    const notionAction = new notion_action_1.NotionAction(notionToken, notionTaskDatabaseId, url);
+    await notionAction.run();
+}
+main();
+
+
+/***/ }),
+
+/***/ 6943:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NotionAction = void 0;
 const core_1 = __nccwpck_require__(2186);
 const client_1 = __nccwpck_require__(324);
-const core = __importStar(__nccwpck_require__(2186));
 class NotionAction {
     notionToken;
     notionTaskDatabaseId;
@@ -30044,16 +30066,7 @@ class NotionAction {
         }
     }
 }
-async function main() {
-    const notionToken = core.getInput('notion_token');
-    const notionTaskDatabaseId = core.getInput('notion_task_database_id');
-    const url = core.getInput('url');
-    // const repo_name = core.getInput('repo_name');
-    // const repo_owner= core.getInput('repo_owner');
-    const notionAction = new NotionAction(notionToken, notionTaskDatabaseId, url);
-    await notionAction.run();
-}
-main();
+exports.NotionAction = NotionAction;
 
 
 /***/ }),
