@@ -1,33 +1,49 @@
-import { setFailed } from '@actions/core'
-import { Client, LogLevel } from '@notionhq/client'
-// import { Octokit } from 'octokit';
-import * as core from '@actions/core'
+import { setFailed } from '@actions/core';
+import { Client, LogLevel } from '@notionhq/client';
+import * as core from '@actions/core';
 
-const notion_token = core.getInput('notion_token');
-const notion_task_database_id = core.getInput('notion_task_database_id');
-const url = core.getInput('url');
-// const repo_name = core.getInput('repo_name');
-// const repo_owner= core.getInput('repo_owner');
+class NotionAction {
+  notionToken: string;
+  notionTaskDatabaseId: string;
+  url: string;
 
-async function run(): Promise<void> {
-  const notion = new Client({
-    auth: notion_token,
-    logLevel: LogLevel.DEBUG,
-  })
+  constructor(notionToken: string, notionTaskDatabaseId: string, url: string) {
+    this.notionToken = notionToken;
+    this.notionTaskDatabaseId = notionTaskDatabaseId;
+    this.url = url;
+  }
 
-  try {
-    await notion.pages.create({
-      parent: { database_id: notion_task_database_id },
-      properties: {
-        'GitHub Issue リンク': {
-          type: 'url',
-          url: url,
-        }
-      },
-    })
-  } catch (error) {
-    setFailed(error as Error)
+  async run(): Promise<void> {
+    const notion = new Client({
+      auth: this.notionToken,
+      logLevel: LogLevel.DEBUG,
+    });
+
+    try {
+      await notion.pages.create({
+        parent: { database_id: this.notionTaskDatabaseId },
+        properties: {
+          'GitHub Issue リンク': {
+            type: 'url',
+            url: this.url,
+          }
+        },
+      });
+    } catch (error) {
+      setFailed(error as Error);
+    }
   }
 }
 
-run()
+async function main(): Promise<void> {
+  const notionToken = core.getInput('notion_token');
+  const notionTaskDatabaseId = core.getInput('notion_task_database_id');
+  const url = core.getInput('url');
+  // const repo_name = core.getInput('repo_name');
+  // const repo_owner= core.getInput('repo_owner');
+
+  const notionAction = new NotionAction(notionToken, notionTaskDatabaseId, url);
+  await notionAction.run();
+}
+
+main();

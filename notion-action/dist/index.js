@@ -30013,34 +30013,47 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(2186);
 const client_1 = __nccwpck_require__(324);
-// import { Octokit } from 'octokit';
 const core = __importStar(__nccwpck_require__(2186));
-const notion_token = core.getInput('notion_token');
-const notion_task_database_id = core.getInput('notion_task_database_id');
-const url = core.getInput('url');
-// const repo_name = core.getInput('repo_name');
-// const repo_owner= core.getInput('repo_owner');
-async function run() {
-    const notion = new client_1.Client({
-        auth: notion_token,
-        logLevel: client_1.LogLevel.DEBUG,
-    });
-    try {
-        await notion.pages.create({
-            parent: { database_id: notion_task_database_id },
-            properties: {
-                'GitHub Issue リンク': {
-                    type: 'url',
-                    url: url,
-                }
-            },
-        });
+class NotionAction {
+    notionToken;
+    notionTaskDatabaseId;
+    url;
+    constructor(notionToken, notionTaskDatabaseId, url) {
+        this.notionToken = notionToken;
+        this.notionTaskDatabaseId = notionTaskDatabaseId;
+        this.url = url;
     }
-    catch (error) {
-        (0, core_1.setFailed)(error);
+    async run() {
+        const notion = new client_1.Client({
+            auth: this.notionToken,
+            logLevel: client_1.LogLevel.DEBUG,
+        });
+        try {
+            await notion.pages.create({
+                parent: { database_id: this.notionTaskDatabaseId },
+                properties: {
+                    'GitHub Issue リンク': {
+                        type: 'url',
+                        url: this.url,
+                    }
+                },
+            });
+        }
+        catch (error) {
+            (0, core_1.setFailed)(error);
+        }
     }
 }
-run();
+async function main() {
+    const notionToken = core.getInput('notion_token');
+    const notionTaskDatabaseId = core.getInput('notion_task_database_id');
+    const url = core.getInput('url');
+    // const repo_name = core.getInput('repo_name');
+    // const repo_owner= core.getInput('repo_owner');
+    const notionAction = new NotionAction(notionToken, notionTaskDatabaseId, url);
+    await notionAction.run();
+}
+main();
 
 
 /***/ }),
