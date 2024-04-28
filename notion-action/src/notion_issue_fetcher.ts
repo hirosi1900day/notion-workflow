@@ -37,6 +37,8 @@ export class NotionIssueFetcher {
 
     console.log(`${pages.length} issues successfully fetched.`);
 
+    console.log('確認だよ', pages.length)
+
     const issues: Issue[] = [];
 
     for (const page of pages) {
