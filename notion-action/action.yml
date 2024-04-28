@@ -1,13 +1,13 @@
 name: 'Notion Action'
 description: 'Notion Action'
 inputs:
-  notion_token:  # id of input
+  notion_token:
     description: 'Notion Token'
     required: true
-  notion_task_database_id:  # id of input
+  notion_task_database_id:
     description: 'Notion Task Database ID'
     required: true
-  url: #
+  url:
     description: 'URL'
     required: true
   status_property_name:
