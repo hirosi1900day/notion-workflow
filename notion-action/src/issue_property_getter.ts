@@ -24,7 +24,7 @@ interface IssueProperties {
   };
 }
 
-class IssuePropertyGetter {
+export class IssuePropertyGetter {
   private title: string;
   private number: number;
   private state: string;

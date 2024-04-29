@@ -37,8 +37,6 @@ export class NotionIssueFetcher {
 
     console.log(`${pages.length} issues successfully fetched.`);
 
-    console.log('確認だよ', pages.length)
-
     const issues: Issue[] = [];
 
     for (const page of pages) {
@@ -48,10 +46,7 @@ export class NotionIssueFetcher {
         property_id: issueNumberPropertyId,
       }) as NumberPropertyItemObjectResponse;
       
-      console.log('確認でーす')
       if (propertyResult.number) {
-        console.log('確認3', page.id)
-        console.log('確認4', propertyResult.number)
         issues.push({
           pageId: page.id,
           issueNumber: propertyResult.number,
