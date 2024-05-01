@@ -25,8 +25,9 @@ async function main(): Promise<void> {
   core.info(`testだよー！:${test}`)
   const githubFetcher = new GithubIssueFetcher(repo_owner, repo_name)
   const test2 = await githubFetcher.getIssues()
-  console.log(test2)
-  core.setOutput('test', test2);
+  core.setFailed('失敗させるよ〜')
+  core.info(`test2だよー！:${test2}`)
+  core.setOutput('test', test2)
 }
 
 
