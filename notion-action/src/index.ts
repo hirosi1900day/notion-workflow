@@ -19,9 +19,10 @@ async function main(): Promise<void> {
   })
   
   //  以下確認ようのコード
+  core.error('失敗テスト')
   const notionFetcher = new NotionIssueFetcher(notionClient, notionTaskDatabaseId)
   const test = await notionFetcher.fetchIssues()
-  console.log(test)
+  core.info(`testだよー！:${test}`)
   const githubFetcher = new GithubIssueFetcher(repo_owner, repo_name)
   const test2 = await githubFetcher.getIssues()
   console.log(test2)
