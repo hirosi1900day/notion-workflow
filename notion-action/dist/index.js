@@ -34211,6 +34211,7 @@ async function main() {
     const githubFetcher = new github_issue_fetcher_1.GithubIssueFetcher(repo_owner, repo_name);
     const test2 = await githubFetcher.getIssues();
     console.log(test2);
+    core.setOutput('test', test2);
 }
 main();
 
