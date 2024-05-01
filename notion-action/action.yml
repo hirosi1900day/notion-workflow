@@ -16,6 +16,9 @@ inputs:
   repo_name:
     description: 'Github repository name'
     required: true
+outputs:
+  test:
+    description: 'test'
 runs:
   using: 'node20'
   main: 'dist/index.js'

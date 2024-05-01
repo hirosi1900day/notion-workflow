@@ -25,6 +25,7 @@ async function main(): Promise<void> {
   const githubFetcher = new GithubIssueFetcher(repo_owner, repo_name)
   const test2 = await githubFetcher.getIssues()
   console.log(test2)
+  core.setOutput('test', test2);
 }
 
 
