@@ -34205,9 +34205,10 @@ async function main() {
         logLevel: client_1.LogLevel.DEBUG
     });
     //  以下確認ようのコード
+    core.error('失敗テスト');
     const notionFetcher = new notion_issue_fetcher_1.NotionIssueFetcher(notionClient, notionTaskDatabaseId);
     const test = await notionFetcher.fetchIssues();
-    console.log(test);
+    core.info(`testだよー！:${test}`);
     const githubFetcher = new github_issue_fetcher_1.GithubIssueFetcher(repo_owner, repo_name);
     const test2 = await githubFetcher.getIssues();
     console.log(test2);
